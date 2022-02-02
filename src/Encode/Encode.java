@@ -47,12 +47,14 @@ public class Encode {
         int XIndex = 0;
         int YIndex = 0;
         int rgbIndex = 0; //Keeps track of Sub-Pixel Information
+
         for (int i = 0; i < TextToEncode.length(); i++) {
             char singleCharacter = TextToEncode.charAt(i);
             int asciiVal = (int) singleCharacter;
 
-            if (YIndex == imageWidth) {
-                XIndex++;
+            if (XIndex == imageWidth) {
+                XIndex = 0;
+                YIndex++;
             }
 
             switch (rgbIndex) {
@@ -85,7 +87,7 @@ public class Encode {
 
         for (int y = 0; y < imageHeight; y++) {
             for (int x = 0; x < imageWidth; x++) {
-                System.out.println("R: " + ImageData[y][x].getR() + "; G: " + ImageData[y][x].getG() + "; B: " + ImageData[y][x].getB());
+                //System.out.println("R: " + ImageData[y][x].getR() + "; G: " + ImageData[y][x].getG() + "; B: " + ImageData[y][x].getB());
                 int RGB = ImageData[y][x].getR();
                 RGB = (RGB << 8) + ImageData[y][x].getG();
                 RGB = (RGB << 8) + ImageData[y][x].getB();

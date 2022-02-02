@@ -2,6 +2,7 @@
 //Its goal is to encrypt/decrypt text into a picture, this program can also be used to decode said image as well.
 //Developed on Linux
 
+import Decode.Decode;
 import Encode.Encode;
 
 import java.io.File;
@@ -18,8 +19,9 @@ public class SteganographyMain {
         encode.SetupEncoder(FilePath, Text);
     }
 
-    private static void DecodeData() {
-
+    private static void DecodeData() throws IOException {
+        Decode decode = new Decode();
+        decode.SetupDecoder(FilePath);
     }
 
 

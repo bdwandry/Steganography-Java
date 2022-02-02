@@ -67,11 +67,12 @@ public class Encode {
                 case 2:
                     ImageData[YIndex][XIndex].setB(asciiVal);
                     rgbIndex = 0;
-                    YIndex++;
+                    XIndex++;
                     break;
             }
         }
 
+        XIndex++;
         ImageData[YIndex][XIndex].setR(0);
         ImageData[YIndex][XIndex].setG(0);
         ImageData[YIndex][XIndex].setB(0);
@@ -84,6 +85,7 @@ public class Encode {
 
         for (int y = 0; y < imageHeight; y++) {
             for (int x = 0; x < imageWidth; x++) {
+                System.out.println("R: " + ImageData[y][x].getR() + "; G: " + ImageData[y][x].getG() + "; B: " + ImageData[y][x].getB());
                 int RGB = ImageData[y][x].getR();
                 RGB = (RGB << 8) + ImageData[y][x].getG();
                 RGB = (RGB << 8) + ImageData[y][x].getB();

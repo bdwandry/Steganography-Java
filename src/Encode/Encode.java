@@ -10,13 +10,13 @@ import static java.awt.image.BufferedImage.TYPE_INT_RGB;
 
 public class Encode {
     private String FilePath;
-    private String TextToEncrypt;
+    private String TextToEncode;
     private EncodeObj [][] ImageData;
 
 
     public void SetupEncoder(String filePath, String text) throws IOException {
         FilePath = filePath;
-        TextToEncrypt = text;
+        TextToEncode = text;
         LoadImage();
     }
 
@@ -39,19 +39,42 @@ public class Encode {
             }
         }
 
-        //For testing purposes
-//        for (int y = 0; y < image.getHeight(); y++) {
-//            for (int x = 0; x < image.getWidth(); x++) {
-//                System.out.println(ImageData[y][x].getR());
-//                System.out.println(ImageData[y][x].getG());
-//                System.out.println(ImageData[y][x].getB());
-//            }
-//        }
         encodeImageData(image.getHeight(), image.getWidth());
     }
 
     private void encodeImageData(int imageHeight, int imageWidth) throws IOException {
-        //Do stuff here later
+        //Sets RGB Value to ASCII Character
+        int XIndex = 0;
+        int YIndex = 0;
+        int rgbIndex = 0; //Keeps track of Sub-Pixel Information
+        for (int i = 0; i < TextToEncode.length(); i++) {
+            char singleCharacter = TextToEncode.charAt(i);
+            int asciiVal = (int) singleCharacter;
+
+            if (YIndex == imageWidth) {
+                XIndex++;
+            }
+
+            switch (rgbIndex) {
+                case 0: ;
+                    ImageData[YIndex][XIndex].setR(asciiVal);
+                    rgbIndex = 1;
+                    break;
+                case 1:
+                    ImageData[YIndex][XIndex].setG(asciiVal);
+                    rgbIndex = 2;
+                    break;
+                case 2:
+                    ImageData[YIndex][XIndex].setB(asciiVal);
+                    rgbIndex = 0;
+                    YIndex++;
+                    break;
+            }
+        }
+
+        ImageData[YIndex][XIndex].setR(0);
+        ImageData[YIndex][XIndex].setG(0);
+        ImageData[YIndex][XIndex].setB(0);
 
         WriteOutImage(imageHeight, imageWidth);
     }

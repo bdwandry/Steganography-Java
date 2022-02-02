@@ -27,9 +27,9 @@ public class Decode {
                     System.exit(1);
                 }
 
-                System.out.print((char) getRGBValue.getRed() + " ");
-                System.out.print((char) getRGBValue.getGreen() + " ");
-                System.out.print((char) getRGBValue.getBlue() + " ");
+                System.out.print((char) getRGBValue.getRed());
+                System.out.print((char) getRGBValue.getGreen());
+                System.out.print((char) getRGBValue.getBlue());
             }
         }
     }

@@ -5,6 +5,8 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 
 import static java.awt.image.BufferedImage.TYPE_INT_RGB;
 
@@ -96,6 +98,19 @@ public class Encode {
             }
         }
 
-        ImageIO.write(EncodedImage, "png", new File("test.png"));
+        //Gets File Extension
+        int fileExtIndex = FilePath.lastIndexOf('.');
+
+        //Gets File Path
+        File file = new File(FilePath);
+        String AbsolutePath = file.getAbsolutePath();
+        Path path = Paths.get(AbsolutePath);
+        String parentPath = path.getParent().toString();
+        //Gets Filename without Extension
+        String name = file.getName();
+        String fileName = name.replaceFirst("[.][^.]+$", "");
+
+        ImageIO.write(EncodedImage, FilePath.substring(fileExtIndex + 1), new File(parentPath + java.io.File.separator + fileName + "-Encoded." + FilePath.substring(fileExtIndex + 1)));
+        System.out.println("Wrote Encoded File: " + parentPath + java.io.File.separator + fileName + "-Encoded." + FilePath.substring(fileExtIndex + 1));
     }
 }
